@@ -160,3 +160,7 @@ cython_debug/
 #.idea/
 
 data_dump.py
+demo.ipynb
+kaggle.json
+crop-recommendation-dataset
+catboost_info
