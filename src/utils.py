@@ -21,7 +21,7 @@ def get_collection_as_dataframe(database_name: str, collection_name: str) -> pd.
     """
     try:
         logging.info(f"Reading data from database: {database_name} and collection: {collection_name}")
-        df = pd.DataFrame(list(mongoclient[database_name][collection_name].find()))
+        df = pd.DataFrame(list(mongo_client[database_name][collection_name].find()))
         logging.info(f"{database_name} found in the mongodb")
 
         if "_id" in df.columns:
