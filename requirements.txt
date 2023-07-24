@@ -7,5 +7,5 @@ scikit-learn
 opendatasets
 python-dotenv
 ipykernel
-xgboost
-catboost
+PyYAML
+dill
