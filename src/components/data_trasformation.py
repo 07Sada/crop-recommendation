@@ -70,9 +70,12 @@ class DataTransformation:
             input_feature_train_arr = transformation_pipeline.transform(input_feature_train_df)
             input_feature_test_arr = transformation_pipeline.transform(input_feature_test_df)
 
+            train_arr = np.c_[input_feature_train_arr, target_feature_train_arr]
+            test_arr = np.c_[input_feature_test_arr, target_feature_test_arr]
+
             # save the numpy array 
-            utils.save_object(file_path=self.data_transformation_config.transformed_train_path, obj=input_feature_train_arr)
-            utils.save_object(file_path=self.data_transformation_config.transformed_test_path, obj=input_feature_test_arr)
+            utils.save_object(file_path=self.data_transformation_config.transformed_train_path, obj=train_arr)
+            utils.save_object(file_path=self.data_transformation_config.transformed_test_path, obj=test_arr)
 
             utils.save_object(file_path=self.data_transformation_config.transform_object_path, obj=transformation_pipeline)
 
