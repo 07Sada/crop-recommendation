@@ -44,7 +44,6 @@ class ModelTrainer:
             logging.info(f"Splitting input and target feature from both train and test arr. ")
             X_train, y_train = train_arr[:, :-1], train_arr[:, -1]
             X_test, y_test = test_arr[:, :-1], test_arr[:, -1]
-            logging.info(f"y_test: {y_test}")
 
             logging.info(f"Training the model")
             model = self.train_model(X=X_train, y=y_train)
