@@ -33,6 +33,12 @@ def get_collection_as_dataframe(database_name: str, collection_name: str) -> pd.
         raise CropException(e, sys)
 
 
+def seperate_dependant_column(df: pd.DataFrame, exclude_column: list) -> pd.DataFrame:
+    final_dataframe = df.drop(exclude_column, axis=1)
+
+    return final_dataframe
+
+
 def write_yaml_file(file_path, data: dict):
     try:
         file_dir = os.path.dirname(file_path)
