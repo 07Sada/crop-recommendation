@@ -3,11 +3,14 @@ from src.entity import config_entity
 from src.entity import artifact_entity
 from src.logger import logging
 from src.exception import CropException
+from src.config import TARGET_COLUMN
 from src.utils import load_object
+
 from sklearn.metrics import f1_score
 import pandas as pd
 import numpy as np
-from src.config import TARGET_COLUMN
+import os
+import sys
 
 
 class ModelEvaluation:
@@ -47,7 +50,7 @@ class ModelEvaluation:
             # finding location of transformed model, and target encoder
             logging.info(f"Finding location of transformer model and target encoder")
             transformer_path = self.model_resolver.get_latest_transformer_path()
-
+            
             model_path = self.model_resolver.get_latest_model_path()
 
             target_encoder_path = self.model_resolver.get_latest_target_encoder_path()
@@ -85,9 +88,7 @@ class ModelEvaluation:
             y_pred = current_model.predict(input_arr)
             y_true = current_target_encoder.transform(target_df)
 
-            print(
-                f"Prediction using previous model : {target_encoder.inverse_transform(y_pred[:5])}"
-            )
+   
             previous_model_score = f1_score(
                 y_true=y_true, y_pred=y_pred, average="weighted"
             )
@@ -99,9 +100,7 @@ class ModelEvaluation:
             y_pred = current_model.predict(input_arr)
             y_true = current_target_encoder.transform(target_df)
 
-            print(
-                f"Predicted using trained model: {current_target_encoder.inverse_transform(y_pred[:5])}"
-            )
+
             current_model_score = f1_score(
                 y_true=y_true, y_pred=y_pred, average="weighted"
             )
@@ -110,9 +109,7 @@ class ModelEvaluation:
 
             if current_model_score <= previous_model_score:
                 logging.info(f"Current trained model is not better than previous model")
-                raise Exception(
-                    f"Current trained model is not better than previous model"
-                )
+                raise Exception("Current trained model is not better than previous model")
 
             model_eval_artifact = artifact_entity.ModelEvaluationArtifact(
                 is_model_accepted=True,
