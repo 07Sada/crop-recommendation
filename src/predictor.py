@@ -31,11 +31,9 @@ class ModelResolver:
             dir_names = os.listdir(self.model_registry)
             if len(dir_names) == 0:
                 return None
-            dir_names = list(map(list, dir_names))
+            dir_names = list(map(int, dir_names))
             latest_dir_name = max(dir_names)
-            logging.info(f"Inside the get_latest_dir_path:")
-            logging.info(os.path.join(self.model_registry, f"{str(latest_dir_name[0])}"))
-            return os.path.join(self.model_registry, f"{str(latest_dir_name[0])}")
+            return os.path.join(self.model_registry, f"{latest_dir_name}")
 
         except Exception as e:
             raise CropException(e, sys)
